@@ -40,7 +40,7 @@ const Navbar = () => {
                         <span className="badge badge-xs badge-primary indicator-item"></span>
                     </div>
                 </button>
-                <a className="btn btn-outline btn-warning">Appointment</a>
+                <Link to='/login'><a className="btn btn-outline btn-warning">Appointment</a></Link>
             </div>
         </div>
     );
