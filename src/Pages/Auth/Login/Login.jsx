@@ -1,10 +1,15 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import imglog from '../../../assets/images/login/login.svg';
 import { useContext } from 'react';
 import { AuthContext } from '../../../provider/AuthProvider';
+import axios from 'axios';
+
+
 
 const Login = () => {
     const {loginUser} = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const handleLogin = e =>{
         e.preventDefault();
@@ -18,13 +23,26 @@ const Login = () => {
 
         loginUser(email, password)
         .then(result=> {
-            const user = result.user;
-            console.log(user);
+            const loggedinUser = result.user;
+            console.log(loggedinUser);
+            const user = {email};
+            
+            // jwt token api
+            axios.post('http://localhost:5000/jwt', user, {withCredentials: true})
+            .then(res=> {
+                console.log(res.data);
+                if(res.data.success){
+                    navigate(location?.state ? location?.state : '/');
+                }
+            })
+
         })
         .then(error => {
             console.log(error)
         })
     }
+
+    
 
     return (
         <div className="hero min-h-screen bg-base-100">

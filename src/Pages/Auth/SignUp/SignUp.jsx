@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import imgsgn from '../../../assets/images/login/login.svg';
 import { useContext } from 'react';
 import { AuthContext } from '../../../provider/AuthProvider';
 
 const SignUp = () => {
     const {createUser} = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleSignup = e =>{
         e.preventDefault();
@@ -19,10 +20,11 @@ const SignUp = () => {
         .then(result => {
             const user = result.user;
             console.log(user);
+            navigate('/');
         })
         .then(error=> {
             console.log(error)
-        })
+        }) 
         
     }
     return (
